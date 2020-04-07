@@ -79,7 +79,6 @@
         <module>mockserver-examples</module>
         <module>mockserver-junit-rule</module>
         <module>mockserver-junit-jupiter</module>
-        <module>mockserver-netty-with-dependencies</module>
     </modules>
 
     <dependencyManagement>
