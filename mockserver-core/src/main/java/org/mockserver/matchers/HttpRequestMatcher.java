@@ -236,7 +236,7 @@ public class HttpRequestMatcher extends NotMatcher<HttpRequest> {
                         .setArguments(request, (this.expectation == null ? this : this.expectation.clone()))
                 );
             } else {
-                becauseBuilder.replace(0, 1, "");
+                becauseBuilder.replace(0, NEW_LINE.length(), "");
                 mockServerLogger.logEvent(
                     new LogEntry()
                         .setType(EXPECTATION_NOT_MATCHED)

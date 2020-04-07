@@ -8,16 +8,15 @@ import org.mockserver.serialization.ObjectMapperFactory;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.stream.Collectors;
 
-import static org.apache.commons.lang3.StringUtils.*;
+import static org.apache.commons.lang3.StringUtils.isBlank;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+import static org.apache.commons.lang3.StringUtils.substringAfter;
+import static org.apache.commons.lang3.StringUtils.substringBefore;
 import static org.slf4j.event.Level.TRACE;
 
 @SuppressWarnings("unused")
@@ -78,28 +77,6 @@ public class MediaType extends ObjectWithJsonToString {
     public static final MediaType QUICKTIME = new MediaType("video", "quicktime");
     public static final MediaType JPEG = new MediaType("image", "jpeg");
     public static final MediaType PNG = new MediaType("image", "png");
-
-    private static final Set<String> UTF8_APPLICATION_SUBTYPES = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-        "atom+xml", "ecmascript", "javascript", "json", "jsonml+json", "lost+xml", "wsdl+xml", "xaml+xml", "xhtml+xml",
-        "xml", "xml-dtd", "xop+xml", "xslt+xml", "xspf+xml", "x-www-form-urlencoded"
-    )));
-    private static final Set<String> UTF8_TEXT_SUBTYPES = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
-        "css", "csv", "html", "plain", "richtext", "sgml", "tab-separated-values", "x-fortran", "x-java-source"
-    )));
-
-    private static boolean isDefaultUtf8(String type, String subtype) {
-        if (type == null || subtype == null) {
-            return false;
-        } else if (type.equals("application")) {
-            return UTF8_APPLICATION_SUBTYPES.contains(subtype);
-        } else if (type.equals("image") && subtype.equals("svg+xml")) {
-            return true;
-        } else if (type.equals("text")) {
-            return UTF8_TEXT_SUBTYPES.contains(subtype);
-        } else {
-            return false;
-        }
-    }
 
     @SuppressWarnings("UnstableApiUsage")
     public static MediaType parse(String mediaTypeHeader) {
@@ -247,6 +224,10 @@ public class MediaType extends ObjectWithJsonToString {
         } else {
             return isDefaultUtf8(type, subtype) ? StandardCharsets.UTF_8 : DEFAULT_HTTP_CHARACTER_SET;
         }
+    }
+
+    private static boolean isDefaultUtf8(String type, String subtype) {
+        return type != null && subtype != null && type.equals("application") && subtype.equals("json");
     }
 
     public boolean isCompatible(MediaType other) {

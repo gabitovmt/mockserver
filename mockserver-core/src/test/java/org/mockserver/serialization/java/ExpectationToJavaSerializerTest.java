@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
+import static org.mockserver.character.Character.ESCAPED_NEW_LINE;
 import static org.mockserver.character.Character.NEW_LINE;
 import static org.mockserver.matchers.TimeToLive.unlimited;
 import static org.mockserver.matchers.Times.exactly;
@@ -234,7 +235,7 @@ public class ExpectationToJavaSerializerTest {
                 "        )" + NEW_LINE +
                 "        .respond(" + NEW_LINE +
                 "                template(HttpTemplate.TemplateType.JAVASCRIPT)" + NEW_LINE +
-                "                        .withTemplate(\"if (request.method === 'POST' && request.path === '/somePath') {\\n    return {\\n        'statusCode': 200,\\n        'body': JSON.stringify({name: 'value'})\\n    };\\n} else {\\n    return {\\n        'statusCode': 406,\\n        'body': request.body\\n    };\\n}\")" + NEW_LINE +
+                "                        .withTemplate(\"if (request.method === 'POST' && request.path === '/somePath') {" + ESCAPED_NEW_LINE + "    return {" + ESCAPED_NEW_LINE + "        'statusCode': 200," + ESCAPED_NEW_LINE + "        'body': JSON.stringify({name: 'value'})" + ESCAPED_NEW_LINE + "    };" + ESCAPED_NEW_LINE + "} else {" + ESCAPED_NEW_LINE + "    return {" + ESCAPED_NEW_LINE + "        'statusCode': 406," + ESCAPED_NEW_LINE + "        'body': request.body" + ESCAPED_NEW_LINE + "    };" + ESCAPED_NEW_LINE + "}\")" + NEW_LINE +
                 "                        .withDelay(new Delay(TimeUnit.MILLISECONDS, 100))" + NEW_LINE +
                 "        );",
             new ExpectationToJavaSerializer().serialize(1,

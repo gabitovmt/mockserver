@@ -118,7 +118,7 @@ public class JsonSchemaValidator extends ObjectWithReflectiveEqualsHashCodeToStr
                         .setMessageFormat("exception validating JSON")
                         .setThrowable(e)
                 );
-                return e.getClass().getSimpleName() + " - " + e.getMessage();
+                return e.getClass().getSimpleName() + " - " + e.getMessage().replaceAll("\\n", NEW_LINE);
             }
         }
         return validationResult;

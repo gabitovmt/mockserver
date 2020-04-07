@@ -12,10 +12,10 @@ public class BinaryArrayFormatter {
 
     public static String byteArrayToString(byte[] bytes) {
         if (bytes != null && bytes.length > 0) {
-            return "base64:" + NEW_LINE + "  " + Joiner.on("\n  ").join(Splitter
+            return "base64:" + NEW_LINE + "  " + Joiner.on(NEW_LINE + "  ").join(Splitter
                 .fixedLength(64)
                 .split(Base64.getEncoder().encodeToString(bytes))) + NEW_LINE +
-                "hex:" + NEW_LINE + "  " + Joiner.on("\n  ").join(Splitter
+                "hex:" + NEW_LINE + "  " + Joiner.on(NEW_LINE + "  ").join(Splitter
                 .fixedLength(64)
                 .split(String.valueOf(Hex.encodeHex(bytes))));
         } else {

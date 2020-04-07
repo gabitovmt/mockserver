@@ -20,6 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockserver.character.Character.ESCAPED_NEW_LINE;
 import static org.mockserver.character.Character.NEW_LINE;
 import static org.mockserver.configuration.ConfigurationProperties.logLevel;
 import static org.mockserver.configuration.ConfigurationProperties.matchersFailFast;
@@ -1505,7 +1506,7 @@ public class HttpRequestMatcherLogTest {
                 LOG_DATE_FORMAT.format(new Date(TimeService.currentTimeMillis())) + " - request:" + NEW_LINE +
                     NEW_LINE +
                     "  {" + NEW_LINE +
-                    "    \"body\" : \"<element>\\n   <key>some_key</key>\\n</element>\"" + NEW_LINE +
+                    "    \"body\" : \"<element>" + ESCAPED_NEW_LINE + "   <key>some_key</key>" + ESCAPED_NEW_LINE + "</element>\"" + NEW_LINE +
                     "  }" + NEW_LINE +
                     NEW_LINE +
                     " didn't match request matcher:" + NEW_LINE +
@@ -1574,7 +1575,7 @@ public class HttpRequestMatcherLogTest {
                 LOG_DATE_FORMAT.format(new Date(TimeService.currentTimeMillis())) + " - request:" + NEW_LINE +
                     NEW_LINE +
                     "  {" + NEW_LINE +
-                    "    \"body\" : \"<element>\\n   <key>some_key</key>\\n</element>\"" + NEW_LINE +
+                    "    \"body\" : \"<element>" + ESCAPED_NEW_LINE + "   <key>some_key</key>" + ESCAPED_NEW_LINE + "</element>\"" + NEW_LINE +
                     "  }" + NEW_LINE +
                     NEW_LINE +
                     " didn't match request matcher:" + NEW_LINE +
@@ -1582,7 +1583,7 @@ public class HttpRequestMatcherLogTest {
                     "  {" + NEW_LINE +
                     "    \"body\" : {" + NEW_LINE +
                     "      \"type\" : \"XML\"," + NEW_LINE +
-                    "      \"xml\" : \"<element>\\n   <key>some_key</key>\\n   <value>some_value</value>\\n</element>\"" + NEW_LINE +
+                    "      \"xml\" : \"<element>" + ESCAPED_NEW_LINE + "   <key>some_key</key>" + ESCAPED_NEW_LINE + "   <value>some_value</value>" + ESCAPED_NEW_LINE + "</element>\"" + NEW_LINE +
                     "    }" + NEW_LINE +
                     "  }" + NEW_LINE +
                     NEW_LINE +
@@ -2185,7 +2186,7 @@ public class HttpRequestMatcherLogTest {
                     "      base64:" + NEW_LINE +
                     "        c29tZSBiaW5hcnkgdmFsdWUgdGhhdCBpcyBhbHNvIGxvbmcgYW5kIHdyYXBzIGFz" + NEW_LINE +
                     "        IGxpdHRsZQ==" + NEW_LINE +
-                    "      hex:\n" +
+                    "      hex:" + NEW_LINE +
                     "        736f6d652062696e6172792076616c7565207468617420697320616c736f206c" + NEW_LINE +
                     "        6f6e6720616e64207772617073206173206c6974746c65" + NEW_LINE +
                     "  " + NEW_LINE +
